@@ -33,6 +33,7 @@ class App extends Component {
       <h2>Current Temperature: {this.state.currentTemp}, Humidity: {this.state.currentHum}, Precipitation(mode): {this.state.currentPrec}</h2>)
     return (
       <div className="App">
+      <p>Click the Input line to see the Animation</p>
       <form style={{margin: '10% 40%'}} onSubmit={this.submitForm}>
         <div className="input-field">
           <input name="name" type="text" id="name" required/>
