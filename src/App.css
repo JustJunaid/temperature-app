@@ -2,32 +2,117 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.input-field {
+  position: relative;
+  width: 250px;
+  height: 44px;
+  line-height: 44px;
+}
+label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: #d3d3d3;
+  transition: 0.2s all;
+  cursor: text;
+}
+input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid #d3d3d3;
+  box-shadow: none;
+  color: #111;
+  font-size: 32px;
+  text-align: center;
+}
+input:invalid {
+  outline: 0;
+}
+input:focus,
+input:valid {
+  border-color: #00dd22;
+}
+input:focus~label,
+input:valid~label {
+  font-size: 14px;
+  top: -24px;
+  color: #00dd22;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media only screen and (max-width: 600px) {
+  form {
+    margin: 10% 17% !important;
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+
+.buttonfx{
+  color: black; /* button text color */
+  outline: none;
+  background: transparent;
+  border: none;
+  border-bottom: 4px solid #eee;
+  letter-spacing: 0.0625em;
+  padding: 8px 10px; 
+  text-transform: uppercase;
+  font: bold 16px 'Bitter', sans-serif; /* use google font */
+  line-height: 2;
+  position: relative;
+  display: inline-block;
+  margin-top: 20px;
+  margin-right: 15px;
+  margin-bottom: 20px;
+  cursor: pointer;
+	text-decoration: none; /* remove underline if using A instead of BUTTON tag */
+  overflow: hidden;
+  transition: all .5s;
+  border-radius: 10px;
+}
+
+.buttonfx:before,
+.buttonfx:after{
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  background: #259f6c; /* onhover background color */
+  z-index: -1;
+  transform: translate3D(0,-100%,0); /* move elements above button so they don't appear initially */
+  transition: all .5s;
+}
+
+.buttonfx:before{
+  background: #fafcd6; /* button default background color */
+  z-index: -2;
+  transform: translate3D(0,0,0);
+}
+
+.buttonfx:hover{
+	color: white;
+}
+
+.buttonfx:hover:after{
+  transform: translate3D(0,0,0);
+  transition: all .5s;
+}
+
+.bouncein:hover:before,
+.bouncein:hover:after{
+  transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66) !important;
+}
+
+.angleinleft:after{
+  width: 200%;
+  transform-origin: 0 bottom;
+  transform: translate3D(-50%,0,0) rotate(-50deg);
+}
+
+.angleinleft:hover:after{
+  transform: rotate(0deg);
+  transition: all .5s;
 }
