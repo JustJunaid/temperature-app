@@ -35,7 +35,7 @@ class App extends Component {
       <div className="App">
       <form style={{margin: '10% 40%'}} onSubmit={this.submitForm}>
         <div className="input-field">
-          <input name="name" type="text" id="name" />
+          <input name="name" type="text" id="name" required/>
           <label>Your name:</label>
           <button className="buttonfx angleinleft bouncein" type="submit">Submit</button>
         </div>
