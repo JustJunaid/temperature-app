@@ -6,7 +6,8 @@ class App extends Component {
   state = {
     currentTemp: '',
     currentHum: '',
-    currentPrec: ''
+    currentPrec: '',
+    temps: []
   }
 
   callApi = async (city) => {
@@ -19,29 +20,40 @@ class App extends Component {
     const currentHum = currentParams.main.humidity
     const currentPrec = currentParams.weather[0].description
     this.setState({currentTemp: currentTemp, currentHum: currentHum, currentPrec: currentPrec})
+    return data
   }
 
-  submitForm = (e) => {
+  submitForm = async (e) => {
     e.preventDefault()
     const city = e.target.name.value
-    this.callApi(city)
+    const data = await this.callApi(city)
+    for (let i=0; i<data.list.length; i+=8) {
+      this.setState({temps: [...this.state.temps, data.list[i].main.temp]})
+    }
   }
 
 
   render() {
     const currentParams = (this.state.currentTemp && 
-      <h2>Current Temperature: {this.state.currentTemp}, Humidity: {this.state.currentHum}, Precipitation(mode): {this.state.currentPrec}</h2>)
+      <h2>
+        Current Temperature: <b>{this.state.currentTemp}</b>, Humidity: <b>{this.state.currentHum}</b>, Precipitation(mode): <b>{this.state.currentPrec}</b> <br/>
+        Temperatures for the Next Five Days: {this.state.temps.map(temp => <span style={{color: '#f00'}}>{temp}, </span>)}
+      </h2>
+      )
     return (
       <div className="App">
-      <p>Click the Input line to see the Animation</p>
-      <form style={{margin: '10% 40%'}} onSubmit={this.submitForm}>
-        <div className="input-field">
-          <input name="name" type="text" id="name" required/>
-          <label>Enter City Name Here:</label>
-          <button className="buttonfx angleinleft bouncein" type="submit">Submit</button>
+        <p>Click the Input line to see the Animation</p>
+        <form style={{margin: '5% 40%'}} onSubmit={this.submitForm}>
+          <div className="input-field">
+            <input name="name" type="text" id="name" required/>
+            <label>Enter City Name Here:</label>
+            <button className="buttonfx angleinleft bouncein" type="submit">Submit</button>
+          </div>
+        </form>
+        <div style={{margin: '10%'}}>
+          {currentParams ? currentParams: <h2>Params will go Here...</h2>}
+          <h2></h2>
         </div>
-      </form>
-      {currentParams ? currentParams: <h2>Current Params will go Here...</h2>}
       </div>
     );
   }
